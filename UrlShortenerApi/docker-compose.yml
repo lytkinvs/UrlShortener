@@ -1,0 +1,13 @@
+#version: '2'  
+services:
+  urlshortener-dotnet:
+    container_name: urlshortener-dotnet
+    image: mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim
+    restart: always
+    volumes:
+      - /etc/nginx/sites-enabled:/etc/nginx/sites-enabled/
+      - /app:/app
+    ports:
+      - 8080:80
+    command: sh -c "apt update && apt-get install -y apt-utils libgdiplus libc6-dev nginx procps && cd /app && dotnet UrlShortenerApi.dll"
+
